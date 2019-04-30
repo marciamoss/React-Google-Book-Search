@@ -90,7 +90,9 @@ class Books extends Component {
                 });
                 
                 this.setState({ 
-                  books
+                  books,
+                  book:"",
+                  author:""
                 }); 
               }
              )
