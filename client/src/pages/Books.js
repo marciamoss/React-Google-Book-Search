@@ -18,7 +18,8 @@ class Books extends Component {
     },
     handleShow() {
       this.setState({ show: true });
-    }
+    },
+    modaltxt:""
   };
   
   saveBook = book =>  {
@@ -31,8 +32,15 @@ class Books extends Component {
         bookimg: book.bookimg,
         synopsis: book.synopsis
       })
-        .then(res => console.log("book added"))
-        .catch(err => console.log(err));
+        .then(res => {
+          let modaltxt="Book saved successfully, Click on Saved Books on Top left to view";
+          this.setState({show:book.show, handleClose: book.handleClose, modaltxt});
+      })
+        .catch(err => {
+          console.log(err);
+          let modaltxt="Book already saved, Try another book! Click on Saved Books on Top left to view";
+          this.setState({show:book.show, handleClose: book.handleClose, modaltxt});
+        });
     }
   };
 
@@ -106,7 +114,7 @@ class Books extends Component {
         <Row>
           <Col size="md-12">
             <div className="row border ml-5 mr-5 mt-5" style={{backgroundColor: "lightblue"}}>
-              <PopUps show={this.state.show} handleClose={this.state.handleClose}></PopUps>
+              <PopUps show={this.state.show} handleClose={this.state.handleClose} modaltxt={this.state.modaltxt}></PopUps>
               <div  className="col-md-12 ">
                 <h1>(React) Google Books Search</h1>           
                 <h3>Search for and save books of interest</h3>
@@ -157,7 +165,8 @@ class Books extends Component {
                             {
                               event.preventDefault();
                               let handleCloseCopy = this.state.handleClose.bind(this);
-                              this.setState({show:true, handleClose: handleCloseCopy});
+                              book.show = true;
+                              book.handleClose = handleCloseCopy;
                               this.saveBook(book)
                             }
                           }  

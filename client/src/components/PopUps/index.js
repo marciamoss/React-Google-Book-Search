@@ -4,13 +4,14 @@ import Button from 'react-bootstrap/Button';
 
 
 function PopUps(props) {
+    
     return (
         <>
             <Modal show={props.show} onHide={props.handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title></Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{fontWeight: "bold"}}>Book saved. Click on Saved(Top Left Corner) to view them</Modal.Body>
+                <Modal.Body style={{fontWeight: "bold"}}>{props.modaltxt}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={props.handleClose}>
                     Close
