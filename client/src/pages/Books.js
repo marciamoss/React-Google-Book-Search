@@ -38,8 +38,14 @@ class Books extends Component {
       })
         .catch(err => {
           console.log(err);
-          let modaltxt="Book already saved, Try another book! Click on Saved Books on Top left to view";
-          this.setState({show:book.show, handleClose: book.handleClose, modaltxt});
+          let error=JSON.parse(err.request.responseText).code;
+          //checking for duplicate book save error to display that in modal
+          if(error===11000)
+          {
+            let modaltxt="Book saved previously, Try another book! Click on Saved Books on Top left to view";
+            this.setState({show:book.show, handleClose: book.handleClose, modaltxt});
+          }
+
         });
     }
   };
